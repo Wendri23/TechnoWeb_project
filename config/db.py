@@ -1,5 +1,6 @@
 import sqlite3
 
+# crée les tables de la bd 
 def init_db():
     try:
         conn = sqlite3.connect('config/database.db')
@@ -20,6 +21,7 @@ def init_db():
         conn.commit()
         conn.close()
         
+# ajoute un utilisateur dans la bd
 def add_user(username, email, password):
     try:
         conn = sqlite3.connect('config/database.db')
@@ -36,6 +38,7 @@ def add_user(username, email, password):
         conn.commit()
         conn.close()
 
+# select un utilisateur présent dans la bd en fonction de son id 
 def get_user(user_id):
     try:
         conn = sqlite3.connect('config/database.db')
