@@ -2,7 +2,7 @@ import sqlite3
 
 def init_db():
     try:
-        conn = sqlite3.connect('database.db')
+        conn = sqlite3.connect('config/database.db')
         cursor = conn.cursor()
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
