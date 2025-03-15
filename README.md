@@ -2,6 +2,10 @@
 
 Bienvenue dans le projet de **TechnoWeb** ! Ce projet est une API construite avec [FastAPI](https://fastapi.tiangolo.com/).
 
+## ⚠️ Important
+
+attention a bien git pull avant de travailler sur le repo et a git push apres avoir travailler 
+
 ## Table des matières
 
 - [Installation](#installation)
