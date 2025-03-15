@@ -22,7 +22,7 @@ def init_db():
         
 def add_user(username, email, password):
     try:
-        conn = sqlite3.connect('database.db')
+        conn = sqlite3.connect('config/database.db')
         cursor = conn.cursor()
         cursor.execute('''
             INSERT INTO users (username, email, password)
@@ -38,7 +38,7 @@ def add_user(username, email, password):
 
 def get_user(user_id):
     try:
-        conn = sqlite3.connect('database.db')
+        conn = sqlite3.connect('config/database.db')
         cursor = conn.cursor()
         cursor.execute('''
             SELECT id, username, email, password
