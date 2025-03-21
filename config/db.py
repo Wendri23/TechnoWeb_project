@@ -8,7 +8,7 @@ def init_db():
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT NOT NULL,
+                username TEXT NOT NULL UNIQUE,
                 email TEXT NOT NULL,
                 password TEXT NOT NULL
             )
@@ -22,7 +22,7 @@ def init_db():
         conn.close()
         
 # ajoute un utilisateur dans la bd
-def add_user(username, email, password):
+def add_user(username: str, email: str, password: str):
     try:
         conn = sqlite3.connect('config/database.db')
         cursor = conn.cursor()
@@ -39,7 +39,7 @@ def add_user(username, email, password):
         conn.close()
 
 # select un utilisateur présent dans la bd en fonction de son id 
-def get_user(user_id):
+def get_user_by_id(user_id: int):
     try:
         conn = sqlite3.connect('config/database.db')
         cursor = conn.cursor()
@@ -48,6 +48,24 @@ def get_user(user_id):
             FROM users
             WHERE id = ?
         ''', (user_id,))
+        user = cursor.fetchone()
+        return user
+    except Exception as e:
+        print(f"Erreur lors de la récupération de l'utilisateur : {e}")
+        return None
+    finally:
+        conn.commit()
+        conn.close()
+        
+def get_user_by_username(username: str):
+    try:
+        conn = sqlite3.connect('config/database.db')
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT id, username, email, password
+            FROM users
+            WHERE username = ?
+        ''', (username,))
         user = cursor.fetchone()
         return user
     except Exception as e:
