@@ -1,5 +1,6 @@
 import json.scanner
 from fastapi import APIRouter, HTTPException, Request, Response
+from fastapi.responses import FileResponse
 import models.user as db
 import json
 
@@ -55,7 +56,7 @@ async def login_user(username: str, password: str) -> Response:
     
     raise HTTPException(status_code=401, detail="Mot de passe incorrect")
 
-@UserRouter.get("/protected")
+@UserRouter.get("/dashboard")
 async def protected(request: Request) -> Response:
     token = request.cookies.get("login_token")
     if not token:
@@ -64,5 +65,4 @@ async def protected(request: Request) -> Response:
     if token != "TOKEN":
         raise HTTPException(status_code=401, detail="Token invalide")
     
-    response = Response(content=json.dumps({"message": "Accès autorisé à la route protégée"}), media_type="application/json")
-    return response
+    return FileResponse("static/html/login.html")

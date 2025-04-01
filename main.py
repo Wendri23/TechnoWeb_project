@@ -11,6 +11,7 @@ app = FastAPI()
 def read_root():
   return FileResponse("static/html/login.html")
 
+
 # crée un router nommé UserRouter pour gérer les routes utilisateur
 app.include_router(UserRouter, prefix="/users", tags=["users"])
 

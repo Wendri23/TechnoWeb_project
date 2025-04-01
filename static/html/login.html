@@ -26,4 +26,45 @@
         </div>
       </form>
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+    
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault(); // Empêcher le rechargement de la page
+    
+            // Récupérer les valeurs du formulaire
+            const username = document.querySelector('input[name="uname"]').value;
+            const password = document.querySelector('input[name="psw"]').value;
+    
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/users/login?username=${username}&password=${password}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({ username, password })
+                });
+    
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    alert("Erreur : " + errorData.detail);
+                    return;
+                }
+    
+                const data = await response.json();
+                alert(data.message);
+    
+                // Optionnel : Rediriger l'utilisateur après connexion réussie
+                window.location.href = "static/html/gg.html"; 
+    
+            } catch (error) {
+                console.error("Erreur de connexion :", error);
+                alert("Une erreur s'est produite. Veuillez réessayer.");
+            }
+        });
+    });
+</script>
+    
 </html>
