@@ -1,14 +1,10 @@
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
-from config.db import init_db
 from api.users import UserRouter
 
 
 app = FastAPI()
-
-# appel a la fonction pour initialiser la base de données
-init_db()
 
 # crée une route qui charge un fichier html
 @app.get("/")

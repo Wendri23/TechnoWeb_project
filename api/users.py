@@ -1,5 +1,6 @@
+import json.scanner
 from fastapi import APIRouter, HTTPException, Request, Response
-import config.db as db
+import models.user as db
 import json
 
 UserRouter = APIRouter()
@@ -21,8 +22,8 @@ async def add_user(request: Request, username: str, email: str, password: str):
         )
     
     try:
-        db.add_user(username, email, password)
-        return {"message": "Utilisateur ajouté avec succès"}
+        new_user = db.add_user(username, email, password)
+        return {"message": "Utilisateur ajouté avec succès", "user": new_user.to_dict()}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur lors de l'ajout de l'utilisateur : {e}")
 
@@ -32,15 +33,7 @@ async def get_user(user_id: int):
     user = db.get_user_by_id(user_id)
     if not user:
       raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
-    
-    return {
-        "user": {
-            "id": user[0],
-            "username": user[1],
-            "email": user[2],
-            "password": user[3]
-        }
-    }
+    return {"user": user.to_dict()}
     
 @UserRouter.post("/login")
 async def login_user(username: str, password: str) -> Response:
@@ -54,7 +47,7 @@ async def login_user(username: str, password: str) -> Response:
     if not user:
       raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
     
-    if user[3] == password:
+    if user.password == password:
         token = "TOKEN"
         response = Response(content=json.dumps({"message": "Connexion reussie"}))
         response.set_cookie(key="login_token", value=token, httponly=True, samesite="Strict")
