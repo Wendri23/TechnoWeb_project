@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from api.users import UserRouter
+from api.users_controller import UserRouter
 
 
 app = FastAPI()

@@ -2,7 +2,7 @@ import json
 from fastapi import APIRouter, HTTPException, Request, Response
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
-import models.user as db
+import models.user as User
 import jwt
 
 UserRouter = APIRouter()
@@ -30,7 +30,7 @@ async def create_user_page():
 async def add_user(user_data: UserCreateRequest):
     """Ajoute un nouvel utilisateur"""
     try:
-        new_user = db.add_user(user_data.username, user_data.email, user_data.password)
+        new_user = User.add(user_data.username, user_data.email, user_data.password)
         return {"message": "Utilisateur ajouté avec succès", "user": new_user.to_dict()}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur lors de l'ajout de l'utilisateur : {str(e)}")
@@ -39,7 +39,7 @@ async def add_user(user_data: UserCreateRequest):
 @UserRouter.get("/get/{user_id}")
 async def get_user(user_id: int):
     """Récupère un utilisateur par son identifiant"""
-    user = db.get_user_by_id(user_id)
+    user = User.get_by_id(user_id)
     if not user:
         raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
     return {"user": user.to_dict()}
@@ -55,7 +55,7 @@ async def login_page():
 async def login_user(data: LoginRequest):
     print(data)
     """Authentifie un utilisateur et retourne un token"""
-    user = db.get_user_by_username(data.username)
+    user = User.get_by_username(data.username)
     if not user:
         raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
     
