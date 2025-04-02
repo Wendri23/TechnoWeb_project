@@ -40,7 +40,11 @@ attention a bien git pull avant de travailler sur le repo et a git push apres av
    ```
 
    ```bash
-   pip install "sqlalchemy"   
+   pip install sqlalchemy
+   ```
+
+  ```bash
+   pip install pyjwt 
    ```
 
 ## Démarrage

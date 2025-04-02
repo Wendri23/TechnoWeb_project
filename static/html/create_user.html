@@ -11,10 +11,13 @@
           <label for="uname"><b>Username</b></label>
           <input type="text" placeholder="Enter Username" name="uname" required>
       
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email" name="email" required>
+
           <label for="psw"><b>Password</b></label>
           <input type="password" placeholder="Enter Password" name="psw" required>
       
-          <button type="submit">Login</button>
+          <button type="submit">create</button>
           <label>
             <input type="checkbox" checked="checked" name="remember"> Remember me
           </label>
@@ -28,46 +31,52 @@
 </body>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", function () {
         const form = document.querySelector("form");
     
-        form.addEventListener("submit", async (event) => {
-            event.preventDefault(); // Empêche le rechargement de la page
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault(); // Empêcher le rechargement de la page
     
-            // Récupération des valeurs du formulaire
+            // Récupérer les valeurs du formulaire
             const username = document.querySelector('input[name="uname"]').value;
+            const email = document.querySelector('input[name="email"]').value;
             const password = document.querySelector('input[name="psw"]').value;
     
             try {
-                // Requête de connexion
-                const loginResponse = await fetch("http://127.0.0.1:8000/users/login", {
+                const response = await fetch(`http://127.0.0.1:8000/users`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    credentials: "include", // Envoi du login_token
-                    body: JSON.stringify({ username, password })
+                    credentials: "include", // Assure l'envoi du login_token
+                    body: JSON.stringify({
+                        username: username,
+                        email: email,
+                        password: password
+                    })
                 });
     
-                if (!loginResponse.ok) {
-                    const errorData = await loginResponse.json();
-                    throw new Error(errorData.detail || "Échec de la connexion");
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    alert("Erreur : " + errorData.detail);
+                    return;
                 }
     
-                // Redirection vers le dashboard après connexion réussie
-                const dashboardResponse = await fetch("http://127.0.0.1:8000/users/dashboard", {
+                const data = await response.json();
+                await fetch(`http://127.0.0.1:8000/users/login`, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                    credentials: "include" // Envoi du login_token
-                });    
-                window.location.href = "/users/dashboard";
-
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    credentials: "include" // Assure l'envoi du login_token
+                })
+                window.location.href = "/users/login";
+    
             } catch (error) {
                 console.error("Erreur :", error);
             }
         });
     });
-    
 </script>
     
 </html>
