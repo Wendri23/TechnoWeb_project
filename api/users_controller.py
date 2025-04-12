@@ -76,4 +76,4 @@ async def protected(request: Request):
         raise HTTPException(status_code=401, detail="Token manquant ou expiré")
     payload = jwt.decode(token, SECRET_KEY, ALGORITHM)
 
-    return FileResponse("static/html/gg.html")
+    return FileResponse("static/html/dashboard.html")

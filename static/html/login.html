@@ -3,26 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <link rel="stylesheet" href="../static/css/signlogin.css">
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+
+<title>Login Page</title>
 </head>
 <body>
     <form>
-        <div class="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="uname" required>
+    <div class="screen-1">
+        <img src="../static/pictures/test.jpg" alt="logo" class="logo">
+        
+        <div class="input-group email">
+            <label for="uname"></label>
+            <ion-icon name="mail-outline"></ion-icon>
+            <input type="text" placeholder="Email" name="uname" required> 
+          </div>
+          <!-- remplacer le type text par mail ou email si on veut forcer le @ et ne pas oublier de mettre le html dans le template pour éviter que les pages soient accesibles-->
+
+          <div class="input-group password">
+            <label for="upsw"></label>
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" placeholder="Password" psw="upsw" required>
+          </div>
+          
+    </form>
+        <button class="login">Login</button>
       
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
-      
-          <button type="submit">Login</button>
+        <div class="footer">
+          <span>Sign up</span>
         </div>
+      </div>
       
-        <div class="container" style="background-color:#f1f1f1">
-          <button type="button" class="cancelbtn">Cancel</button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
-        </div>
-      </form>
+      
 </body>
+</html>
+
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -33,7 +52,7 @@
     
             // Récupération des valeurs du formulaire
             const username = document.querySelector('input[name="uname"]').value;
-            const password = document.querySelector('input[name="psw"]').value;
+            const password = document.querySelector('input[psw="upsw"]').value;
     
             try {
                 // Requête de connexion

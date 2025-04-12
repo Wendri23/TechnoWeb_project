@@ -1,12 +1,21 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 
 from api.users_controller import UserRouter
 
 
 app = FastAPI()
+
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates") #inverser les 2
+
+
+
 
 # Autoriser les requêtes depuis le front-end
 app.add_middleware(
@@ -25,6 +34,9 @@ def read_root():
 
 # crée un router nommé UserRouter pour gérer les routes utilisateur
 app.include_router(UserRouter, prefix="/users", tags=["users"])
+
+
+
 
 
 # http://127.0.0.1:8000/docs
