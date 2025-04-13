@@ -64,7 +64,7 @@
                     credentials: "include", // Envoi du login_token
                     body: JSON.stringify({ username, password })
                 });
-    
+                const loginData = await loginResponse.json(); // <- Récupération du JSON
                 if (!loginResponse.ok) {
                     const errorData = await loginResponse.json();
                     throw new Error(errorData.detail || "Échec de la connexion");

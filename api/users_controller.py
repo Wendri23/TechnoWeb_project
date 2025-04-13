@@ -63,7 +63,7 @@ async def login_user(data: LoginRequest):
         raise HTTPException(status_code=401, detail="Mot de passe incorrect")
     
     token = jwt.encode({"username": user.username}, SECRET_KEY, ALGORITHM)
-    response = Response(content=json.dumps({"message": "Connexion réussie"}))
+    response = Response(content=json.dumps({"message": "Connexion réussie", "user": user.to_dict()}), media_type="application/json")
     response.set_cookie(key="login_token", value=token, httponly=True, samesite="Strict")
     return response
 
