@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 from api.users_controller import UserRouter
-
+from api.event_controller import EventRouter
 
 app = FastAPI()
 
@@ -25,6 +25,9 @@ def read_root():
 
 # crée un router nommé UserRouter pour gérer les routes utilisateur
 app.include_router(UserRouter, prefix="/users", tags=["users"])
+
+# crée un router nommé EventRouter pour gérer les routes utilisateur
+app.include_router(EventRouter, prefix="/events", tags=["events"])
 
 
 # http://127.0.0.1:8000/docs

@@ -43,7 +43,7 @@ attention a bien git pull avant de travailler sur le repo et a git push apres av
    pip install sqlalchemy
    ```
 
-  ```bash
+   ```bash
    pip install pyjwt 
    ```
 
@@ -56,5 +56,5 @@ attention a bien git pull avant de travailler sur le repo et a git push apres av
   ```
 
 L'API sera accessible par défaut à l'adresse [http://127.0.0.1:8000](http://127.0.0.1:8000).
-[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+La documentation automatique sera accessible par défaut à l'adresse [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 

@@ -3,7 +3,6 @@ from models.db import SessionLocal, engine, User
 
 User.metadata.create_all(engine)
 
-# Fonctions pour gérer les utilisateurs
 def add(name: str, email: str, password: str):
     session: Session = SessionLocal()
     new_user = User(username=name, email=email, password=password)

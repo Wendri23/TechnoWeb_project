@@ -68,7 +68,7 @@ async def login_user(data: LoginRequest):
     return response
 
 # Route protégée nécessitant un token
-@UserRouter.get("/dashboard")
+@UserRouter.get("/{user_id}/dashboard")
 async def protected(request: Request):
     """Vérifie si l'utilisateur est authentifié via un cookie"""
     token = request.cookies.get("login_token")
