@@ -23,6 +23,17 @@ async def get_event(event_id: int):
         return event
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@EventRouter.get("/{event_id}/presences")
+async def get_event_presences(event_id: int):
+    """Récupérer les présences d'un événement"""
+    try:
+        presences = Presence.get_users_present_for_event(event_id)
+        if not presences:
+            raise HTTPException(status_code=404, detail="Présences non trouvées")
+        return presences
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @EventRouter.post("/")
 async def create_event(event_data: EventCreateRequest):
